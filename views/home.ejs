@@ -1,0 +1,105 @@
+<%- include("partials/header") %>
+
+
+
+<div class="container mbody">
+  <% if(success && success.length>0) {%>
+  <div class="alert alert-success d-flex">
+    <%=success%>
+  </div>
+  <br>
+  <% } %>
+  <% if(error && error.length>0) {%>
+  <div class="alert alert-danger d-flex">
+    <%=error%>
+  </div>
+  <br>
+  <% } %>
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row my-2">
+        <div class="col-lg-3 col-md-6 col-sm-6 my-2">
+          <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">exit_to_app</i>
+              </div>
+              <% if (currentUser.assamese) { %>
+                <h3 class="card-title">সকলো চাওক</h3>
+              <% } else { %>
+                <h3 class="card-title">View complete inventory</h3>
+              <% } %>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <a href="/inventory" class="btn btn-primary">View</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% if (currentUser.isAdmin) { %>
+          <div class="col-lg-3 col-md-6 col-sm-6 my-2">
+            <div class="card card-stats">
+              <div class="card-header card-header-success card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">library_add</i>
+                </div>
+                <% if (currentUser.assamese) { %>
+                  <h3 class="card-title">সম্পাদনা কৰক</h3>
+                <% } else { %>
+                  <h3 class="card-title">Add, Edit and Remove Items</h3>
+                <% } %>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <a href="/inventory/manage" class="btn btn-info">Manage</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% } %>
+        <div class="col-lg-3 col-md-6 col-sm-6 my-2">
+          <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">bar_chart</i>
+              </div>
+              <% if (currentUser.assamese) { %>
+                <h3 class="card-title">অনুসন্ধান & ৰপ্তানি কৰক</h3>
+              <% } else { %>
+                <h3 class="card-title">Search and Export</h3>
+              <% } %>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <a href="/search" class="btn btn-dark">Search</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 my-2">
+          <div class="card card-stats">
+            <div class="card-header card-header-info card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">mark_email_read</i>
+              </div>
+              <% if (currentUser.assamese) { %>
+                <h3 class="card-title">সকলো চাওক</h3>
+              <% } else { %>
+                <h3 class="card-title">View your subscriptions</h3>
+              <% } %>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <a href="/subscriptions" class="btn btn-secondary">View</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%- include("partials/footer") %>

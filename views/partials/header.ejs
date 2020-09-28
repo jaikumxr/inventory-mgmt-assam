@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Inventory Management System</title>
+
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://kit.fontawesome.com/13c373d8b6.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+	<link rel="Shortcut Icon" href="/public/favicon.ico" type="image/ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+	<!-- MDBootstrap Datatables  -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+		<div class="container">
+			<a class="navbar-brand" href="/home"><i class="fas fa-warehouse"></i> IMS </a>
+			<form class="mx-2" action="/togglelang" method="POST">
+					<% if (currentUser.assamese) { %>
+						<button class="btn btn-dark btn-lg">অসমিয়া</button>
+					<% } else { %>
+						<button class="btn btn-light btn-lg">English</button>
+					<% } %>
+				</form>
+			</button>
+			
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<form class="navbar-nav form-inline my-2 my-lg-0 ml-auto">
+					<% if(currentUser){ %>
+						<% if (currentUser.assamese) { %>
+							<a class="nav-item btn btn-light btn-lg mx-1 my-2 my-sm-0" href="/home">গৃহ
+							</a>
+							<a class="nav-item btn btn-light btn-lg mx-1 my-2 my-sm-0" href="/search">অনুসন্ধান
+							</a>
+							<a class="nav-item btn btn-light btn-lg mx-1 my-2 my-sm-0" href="/subscriptions">গ্ৰাহকীভুক্ত হওঁক
+							</a>
+							<% if(currentUser.isAdmin){%>
+							<a class="nav-item btn btn-light btn-lg mx-1 my-2 my-sm-0" href="/inventory/manage">সম্পাদনা</a>
+							<a class="nav-item btn btn-light btn-lg mx-1 my-2 my-sm-0" href="/dashboard">ব্যৱস্থাপক</a>
+							<% } %>
+							<div class="dropdown">
+								<a class="btn btn-secondary btn-lg dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<%= currentUser.username %> 
+								</a>
+	
+								<div class="nav-item dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<a class="dropdown-item" href="/profile/<%= currentUser._id %> ">প্ৰ'ফাইল</a>
+									<a class="dropdown-item" href="/logout">চাইন আউট</a>
+								</div>
+							</div>
+						<% } else { %>
+							<a class="nav-item btn btn-light btn-lg mx-1 my-2 my-sm-0" href="/home">Home
+							</a>
+							<a class="nav-item btn btn-light btn-lg mx-1 my-2 my-sm-0" href="/search">Search
+							</a>
+							<a class="nav-item btn btn-light btn-lg mx-1 my-2 my-sm-0" href="/subscriptions">Subscriptions
+							</a>
+							<% if(currentUser.isAdmin){%>
+							<a class="nav-item btn btn-light btn-lg mx-1 my-2 my-sm-0" href="/inventory/manage">Manage</a>
+							<a class="nav-item btn btn-light btn-lg mx-1 my-2 my-sm-0" href="/dashboard">Admin dashboard</a>
+							<% } %>
+							<div class="dropdown">
+								<a class="btn btn-secondary btn-lg dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<%= currentUser.username %> 
+								</a>
+	
+								<div class="nav-item dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<a class="dropdown-item" href="/profile/<%= currentUser._id %> ">Profile</a>
+									<a class="dropdown-item" href="/logout">Logout</a>
+								</div>
+							</div>
+						<% } %> 
+					<% } else{ %>
+					<a class="nav-item btn btn-dark btn-lg mx-1 my-2 my-sm-0" href="/login">Login</a>
+					<% } %>
+				</form>
+
+			</div>
+		</div>
+	</nav>

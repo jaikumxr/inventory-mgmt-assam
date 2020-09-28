@@ -1,0 +1,86 @@
+<%- include("partials/header") %>
+<div class="mbody container content">
+    <% if(success && success.length>0) {%>
+    <div class="alert alert-success">
+      <%=success%>
+    </div>
+    <% } %>
+    <% if(error && error.length>0) {%>
+    <div class="alert alert-danger">
+      <%=error%>
+    </div>
+    <% } %>
+    <div class="row">
+      <button class="btn btn-outline-secondary float-left" onClick="history.back()">Back</button>
+      <!-- <button class="btn btn-outline-info ml-auto" onClick="history.back()">Export</button> -->
+      <div class="dropdown ml-auto">
+        <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Export As
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <form action="/search/export/excel" method="post">
+            <input type="text" name="items" value="<%=JSON.stringify(items)%>" hidden>
+            <input type="submit" class="dropdown-item" value="Excel file(.xlsx)">
+          </form>
+          <form action="/search/export/pdf" method="post">
+            <input type="text" name="items" value="<%=JSON.stringify(items)%>" hidden>
+            <input type="submit" class="dropdown-item" value="PDF (.pdf)">
+          </form>
+        </div>
+      </div>
+    </div>
+    <% items.forEach(function(item){ %>
+     <div class="row justify-content-center">
+        <div class="card text-center my-2">
+          <div class="card-header">
+            <b>Item id: <%= item.itemObj.itemid %>  </b>
+            <br>
+            <b>Database id: <%= item.itemObj._id %>  </b>
+          </div>
+          <div class="card-body ">
+            <h5 class="card-title"><b>Item Name:</b> <%= item.itemObj.iname %>  </h5>
+    
+            <p class="card-text text-justify"> 
+              <b>Count: </b> <%= item.itemObj.icount %> 
+              <br>
+              <b>Location: </b> <%= item.itemObj.location %> 
+              <br>
+              <b>Type: </b> <%= item.itemObj.itype %> 
+              <br>
+              <% if (!result) { %>
+                <b>Added By: </b> <%= item.adder.username %> 
+              <% } %>
+            
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            <b>Published: <%= item.itemObj.publishedDate.toDateString() %>  </b> 
+            <br>
+            <b>Modified on: <%= item.itemObj.lastModifiedDate.toDateString() %> </b> 
+          </div>
+          </div>
+      </div>
+    <% }) %>  
+    <div class="row mb-5">
+      <button class="btn btn-outline-secondary float-left" onClick="history.back()">Back</button>
+      <!-- <button class="btn btn-outline-info ml-auto" onClick="history.back()">Export</button> -->
+      <div class="dropdown ml-auto">
+        <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Export As
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <form action="/search/export/excel" method="post">
+            <input type="text" name="items" value="<%=JSON.stringify(items)%>" hidden>
+            <input type="submit" class="dropdown-item" value="Excel file(.xlsx)">
+          </form>
+          <form action="/search/export/pdf" method="post">
+            <input type="text" name="items" value="<%=JSON.stringify(items)%>" hidden>
+            <input type="submit" class="dropdown-item" value="PDF (.pdf)">
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+<%- include("partials/footer") %>

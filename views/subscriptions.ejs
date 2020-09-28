@@ -1,0 +1,79 @@
+<%- include("partials/header") %>
+
+<div class="container mbody">
+    <% if(success && success.length>0) {%>
+    <div class="alert alert-success d-flex">
+      <%=success%>
+    </div>
+    <br>
+    <% } %>
+    <% if(error && error.length>0) {%>
+    <div class="alert alert-danger d-flex">
+      <%=error%>
+    </div>
+    <br>
+    <% } %>
+    <div>
+      <form class="form-inline flex-row" action="/subscribe" method="post">
+        <div class="form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Select a keyword to subscribe:</span>
+          </div>
+          <div class="input-group">
+            <select class="form-control" name="keyword">
+              <% allSubs.forEach(function(sub){ %>
+                <option value="<%= sub.value %>"><%= sub.value %> </option>
+              <% }); %> 
+            </select>
+          </div>
+          <div class="input-group-append">
+            <button class="btn btn-outline-success" type="submit">Subscribe</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div>
+      <% if(subs.length>0){ %>
+        <ul class="list-group">
+          <li class="list-group-item"><h3 class="h3">Your subscriptions</h3></li>
+          <% subs.forEach(function(sub){ %>
+            <li class="list-group-item"> 
+            <div class="d-flex flex-row justify-content-between">
+                <div class="p-3">
+                  <b><%= sub.value %></b>
+                </div>
+                <form class="pt-2" action="/unsubscribe" method="post">
+                  <input type="text" name="keyword" value="<%= sub.value%>" hidden>
+                  <button class="btn btn-outline-danger float-right" type="submit">Unsubscribe</button>
+                </form>
+              </div>
+            </li>
+          <% }); %> 
+        </ul>
+      <% } %>  
+    </div>
+    <br>
+    <div>
+      <% subs.forEach(function(sub){ %>
+        <% sub.items.forEach(function(item){ %>
+          <div class="alert alert-info alert-dismissible fade show pb-4">
+            New item from your subscriptions. <br>
+            <b>Keyword: </b> <%= sub.value %> <br>
+            <form action="/search/id" method="post">
+              <input type="text" name="itemid" value="<%=item%>" hidden>
+              <input type="submit" class="btn btn-primary float-right" value="View">
+            </form>
+            <b> Item ID and Name: </b> <%= item %>
+            
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <% }); %> 
+      <% }); %> 
+      
+    </div>
+</div>
+
+<%- include("partials/footer") %>

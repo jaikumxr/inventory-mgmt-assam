@@ -1,0 +1,67 @@
+<%- include("partials/header") %>
+<div class="mbody container content">
+    <% if(success && success.length>0) {%>
+    <div class="alert alert-success">
+      <%=success%>
+    </div>
+    <% } %>
+    <% if(error && error.length>0) {%>
+    <div class="alert alert-danger">
+      <%=error%>
+    </div>
+    <% } %>
+  
+  <h1 class="h1">Search for items:</h1><br>
+  <h1 class="h5">Search by ID: </h1>
+  <form class="form-inline flex-row" action="/search/id" method="POST">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Item ID</span>
+      </div>
+      <input type="text" class="form-control" placeholder="E.g. 591923" name="itemid" required>
+      <div class="input-group-append">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </div>
+    </div>
+  </form>
+  <br>
+  <h1 class="h5">Search by other parameters:</h1>
+  <form class="form-inline" action="/search/parameters" method="post">
+    <div class="d-flex flex-column">
+      <div class="input-group my-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Date Range<span class="imp">*</span>  </span>
+        </div>
+        <input class="form-control" type="date" name="first" placeholder="mm/dd/yyyy" maxlength="10" min="1998-01-01" required>
+        <h1 class="h6 mx-2 my-auto"> to </h1>
+        <input class="form-control" type="date" name="second" placeholder="mm/dd/yyyy" maxlength="10" min="1998-01-01" required>
+      </div>
+      <div class="input-group my-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Type</span>
+        </div>
+        <div class="input-group-append">
+          <select class="form-control" name="type">
+            <option value="Grocery">Grocery</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="input-group my-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Keyword</span>
+        </div>
+        <input type="text" class="form-control" name="keyword" placeholder="E.g. Phone, Food">
+        <div class="input-group-append">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </div>
+      </div>
+    </div>
+    
+     
+
+  </form>
+</div>
+<%- include("partials/footer") %>

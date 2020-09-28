@@ -1,0 +1,105 @@
+<%- include("partials/header") %>
+
+<div class="container mbody">
+    <% if(success && success.length>0) {%>
+    <div class="alert alert-success d-flex">
+        <%=success%>
+    </div>
+    <br>
+    <% } %>
+    <% if(error && error.length>0) {%>
+    <div class="alert alert-danger d-flex">
+        <%=error%>
+    </div>
+    <br>
+    <% } %>
+    <div class="d-flex justify-content-between mb-2">
+        <h2 class="flex-grow-1">Inventory</h2>
+        <% if (currentUser.isAdmin) { %>
+            <form action="/inventory/manage" method="GET"></form>
+        <% } %>
+        <button class="btn btn-secondary" onclick="history.back()">Back</button>
+    </div>
+    <div class="table-responsive">
+        <table id="inventory" class="table" width="100%">
+            <thead>
+                <tr>
+                    <th class="th-sm">Item ID
+                    </th>
+                    <th class="th-sm">Name
+                    </th>
+                    <th class="th-sm">Count
+                    </th>
+                    <th class="th-sm">Last Modified on
+                    </th>
+                    <% if (editEnable&&currentUser.isAdmin) { %>
+                        <th class="th-sm">Edit
+                        </th>
+                        <th class="th-sm">Delete
+                        </th>
+                    <% } else { %>
+                        <th class="th-sm">Details</th>
+                    <% } %> 
+                </tr>
+            </thead>
+            <tbody>
+                <% var counter = 1 %> 
+                <% items.forEach(function(item){ %> %> 
+                    <tr>
+                        
+                        <td><%= item.itemid %> </td>
+                        <td><%= item.iname %> </td>
+                        <td><%= item.icount %> </td>
+                        <td><%= (item.lastModifiedDate).toDateString() %> </td>
+                        <% if (editEnable&&currentUser.isAdmin) { %>
+                            <td>
+                                <form action="/inventory/edit/<%=item._id%>" method="GET">
+                                    <button class="btn btn-secondary"><i class="fas fa-edit"></i></button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/inventory/remove/<%=item._id%>?_method=DELETE" method="POST">
+                                    <span class="btn btn-danger" data-toggle="modal" data-target="#c<%=counter%>"><i class="far fa-trash-alt"></i></span>
+                                    <div class="modal fade" id="c<%=counter%>" tabindex="-1" aria-labelledby="sure" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="sure">Please confirm</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete <%= item.iname %> 
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-info" data-dismiss="modal">No</button>
+                                            <button type="submit" class="btn btn-danger">Yes</button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>                                    
+                                </form>
+                            </td>
+                        <% } else { %>
+                            <td>
+                                <form action="/inventory/item/<%=item._id%> " method="GET">
+                                    <Button class="btn btn-info">
+                                        <i class="fas fa-eye"></i>
+                                    </Button>
+                                </form>
+                            </td>
+                        <% } %> 
+                    </tr>
+                    <% counter++ %> 
+                <% }) %> 
+            </tbody>
+        </table>
+    </div>
+   
+
+</div>
+
+
+
+<%- include("partials/footer") %>
