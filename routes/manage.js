@@ -112,7 +112,6 @@ router.post("/inventory/add", isLoggedIn, (req, res) => {
                         });
                     }
                 });
-                mailer();
             }
         })
 
